@@ -1,0 +1,62 @@
+{
+    "mappings": {
+        "properties": {
+            "attributes": {
+                "properties": {
+                    "name": {
+                        "type": "keyword"
+                    },
+                    "value": {
+                        "type": "keyword"
+                    }
+                }
+            },
+            "brand": {
+                "fields": {
+                    "keyword": {
+                        "ignore_above": 256,
+                        "type": "keyword"
+                    }
+                },
+                "type": "text"
+            },
+            "category": {
+                "fields": {
+                    "keyword": {
+                        "ignore_above": 256,
+                        "type": "keyword"
+                    }
+                },
+                "type": "text"
+            },
+            "name": {
+                "type": "text"
+            },
+            "price": {
+                "type": "float"
+            },
+            "subcategory": {
+                "fields": {
+                    "keyword": {
+                        "ignore_above": 256,
+                        "type": "keyword"
+                    }
+                },
+                "type": "text"
+            }
+        }
+    },
+    "settings": {
+        "index": {
+            "number_of_replicas": "{{number_of_replicas | default(0)}}",
+            "number_of_shards": "{{number_of_shards | default(1)}}",
+            "routing": {
+                "allocation": {
+                    "include": {
+                        "_tier_preference": "data_content"
+                    }
+                }
+            }
+        }
+    }
+}

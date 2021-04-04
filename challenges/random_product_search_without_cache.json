@@ -1,0 +1,39 @@
+{
+    "name": "random-product-search-without-cache",
+    "default": false,
+    "schedule": [
+        {
+            "operation": "delete"
+        },
+        {
+            "operation": "create"
+        },
+        {
+            "operation": "wait-for-green"
+        },
+        {
+            "operation": "bulk-index",
+            "warmup-time-period": 5,
+            "clients": 8
+        },
+        {
+            "operation": "force-merge"
+        },
+        {
+            "name": "sleep-before-search",
+            "operation": "sleep"
+        },
+        {
+            "name": "random-product-search",
+            "operation": "random-product-search-without-cache",
+            "clients": 8,
+            "warmup-iterations": 200,
+            "iterations": 5000,
+            "target-throughput": 50
+        },
+        {
+            "name": "sleep-after-search",
+            "operation": "sleep"
+        }
+    ]
+}

@@ -1,0 +1,72 @@
+{
+    "name": "aggregations",
+    "default": true,
+    "schedule": [
+        {
+            "operation": "delete"
+        },
+        {
+            "operation": "create"
+        },
+        {
+            "operation": "wait-for-green"
+        },
+        {
+            "operation": "bulk-index",
+            "warmup-time-period": 5,
+            "clients": 8
+        },
+        {
+            "operation": "force-merge"
+        },
+        {
+            "name": "sleep-before-search",
+            "operation": "sleep"
+        },
+        {
+            "operation": {
+                "name": "query-match-all",
+                "operation-type": "search",
+                "body": {
+                    "size": 0,
+                    "aggs": {
+                        "brands": {
+                            "terms": {
+                                "field": "brand.keyword",
+                                "size": 30
+                            }
+                        },
+                        "categories": {
+                            "terms": {
+                                "field": "category.keyword",
+                                "size": 100
+                            },
+                            "aggs": {
+                                "subcategories": {
+                                    "terms": {
+                                        "field": "subcategory.keyword",
+                                        "size": 100
+                                    }
+                                }
+                            }
+                        },
+                        "price_range": {
+                            "histogram": {
+                                "field": "price",
+                                "interval": 5
+                            }
+                        }
+                    }
+                }
+            },
+            "clients": 8,
+            "warmup-iterations": 200,
+            "iterations": 5000,
+            "target-throughput": 50
+        },
+        {
+            "name": "sleep-after-search",
+            "operation": "sleep"
+        }
+    ]
+}

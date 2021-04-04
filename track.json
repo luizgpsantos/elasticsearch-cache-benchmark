@@ -1,0 +1,100 @@
+{% import "rally.helpers" as rally with context %}
+{
+  "version": 2,
+  "description": "Tracker-generated track for cache-benchmark",
+  "indices": [
+    {
+      "name": "products-000001",
+      "body": "products-000001.json"
+    }
+  ],
+  "corpora": [
+    {
+      "name": "products-000001",
+      "documents": [
+        {
+          "target-index": "products-000001",
+          "source-file": "products-000001-documents.json.bz2",
+          "document-count": 4050000,
+          "compressed-bytes": 101533040,
+          "uncompressed-bytes": 1212241662
+        }
+      ]
+    }
+  ],
+  "operations": [
+    {
+      "name": "delete",
+      "operation-type": "delete-index"
+    },
+    {
+      "name": "create",
+      "operation-type": "create-index",
+      "settings": {{index_settings | default({}) | tojson}}
+    },
+    {
+      "name": "create_no_request_cache",
+      "operation-type": "create-index",
+      "settings": {
+        "index.requests.cache.enable": false
+      }
+    },
+    {
+      "name": "create_no_query_cache",
+      "operation-type": "create-index",
+      "settings": {
+        "index.queries.cache.enabled": false
+      }
+    },
+    {
+      "name": "wait-for-green",
+      "operation-type": "cluster-health",
+      "index": "products-000001",
+      "request-params": {
+        "wait_for_status": "{{cluster_health | default('green')}}",
+        "wait_for_no_relocating_shards": "true"
+      },
+      "retry-until-success": true
+    },
+    {
+      "name": "bulk-index",
+      "operation-type": "bulk",
+      "bulk-size": {{bulk_size | default(5000)}},
+      "ingest-percentage": {{ingest_percentage | default(100)}}
+    },
+    {
+      "name": "force-merge",
+      "operation-type": "force-merge",
+      "max-num-segments": 1
+    },
+    {
+      "name": "random-product-search-with-cache",
+      "operation-type": "search",
+      "param-source": "products-param-source",
+      "index": "products-000001",
+      "cache": true
+    },
+    {
+      "name": "random-product-search-without-cache",
+      "operation-type": "search",
+      "param-source": "products-param-source",
+      "index": "products-000001",
+      "cache": false
+    },
+    {
+      "name": "random-filtered-product-search-with-cache",
+      "operation-type": "search",
+      "param-source": "filtered-products-param-source",
+      "index": "products-000001",
+      "cache": true
+    },
+    {
+      "name": "sleep",
+      "operation-type": "sleep",
+      "duration": 30
+    }
+  ],
+  "challenges": [
+    {{ rally.collect(parts="challenges/*.json")}}
+  ]
+}
