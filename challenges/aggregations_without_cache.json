@@ -6,7 +6,7 @@
             "operation": "delete"
         },
         {
-            "operation": "create_no_request_cache"
+            "operation": "create_no_cache"
         },
         {
             "operation": "wait-for-green"

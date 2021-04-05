@@ -33,6 +33,14 @@
       "settings": {{index_settings | default({}) | tojson}}
     },
     {
+      "name": "create_no_cache",
+      "operation-type": "create-index",
+      "settings": {
+        "index.requests.cache.enable": false,
+        "index.queries.cache.enabled": false
+      }
+    },
+    {
       "name": "create_no_request_cache",
       "operation-type": "create-index",
       "settings": {
