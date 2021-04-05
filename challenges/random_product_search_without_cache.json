@@ -29,7 +29,7 @@
             "clients": 8,
             "warmup-iterations": 200,
             "iterations": 5000,
-            "target-throughput": 50
+            "target-throughput": 100
         },
         {
             "name": "sleep-after-search",

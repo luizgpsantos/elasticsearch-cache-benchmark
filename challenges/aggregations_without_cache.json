@@ -1,5 +1,5 @@
 {
-    "name": "aggregations_cache_disabled",
+    "name": "aggregations_without_cache",
     "default": false,
     "schedule": [
         {
@@ -25,7 +25,7 @@
         },
         {
             "operation": {
-                "name": "query-match-all",
+                "name": "product-aggregations",
                 "operation-type": "search",
                 "body": {
                     "size": 0,
@@ -62,7 +62,7 @@
             "clients": 8,
             "warmup-iterations": 200,
             "iterations": 5000,
-            "target-throughput": 50
+            "target-throughput": 100
         },
         {
             "name": "sleep-after-search",
