@@ -112,7 +112,7 @@ class RandomFilteredProductSearchSource:
         return self
 
     def params(self):
-        price_range = 10000
+        price_range = 5000
         price_low = random.randint(0, 25) * price_range
         return {
             "body": {
@@ -123,6 +123,16 @@ class RandomFilteredProductSearchSource:
                             {
                                 "query_string": {
                                     "query": "name:*{}*".format(random.choice(self.products)[5:8])
+                                }
+                            }
+                        ],
+                        "filter": [
+                            {
+                                "range": {
+                                    "price": {
+                                        "gt": price_low,
+                                        "lte": price_low + price_range
+                                    }
                                 }
                             }
                         ]
