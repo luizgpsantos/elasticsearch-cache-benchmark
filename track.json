@@ -30,21 +30,31 @@
     {
       "name": "create",
       "operation-type": "create-index",
-      "settings": {{index_settings | default({}) | tojson}}
+      "settings": {
+        "index.search.slowlog.threshold.query.info": "200ms",
+        "index.search.slowlog.threshold.query.trace": "0ms",
+        "index.search.slowlog.level": "info"
+      }
     },
     {
       "name": "create_no_cache",
       "operation-type": "create-index",
       "settings": {
         "index.requests.cache.enable": false,
-        "index.queries.cache.enabled": false
+        "index.queries.cache.enabled": false,
+        "index.search.slowlog.threshold.query.info": "200ms",
+        "index.search.slowlog.threshold.query.trace": "0ms",
+        "index.search.slowlog.level": "info"
       }
     },
     {
       "name": "create_no_request_cache",
       "operation-type": "create-index",
       "settings": {
-        "index.requests.cache.enable": false
+        "index.requests.cache.enable": false,
+        "index.search.slowlog.threshold.query.info": "200ms",
+        "index.search.slowlog.threshold.query.trace": "0ms",
+        "index.search.slowlog.level": "info"
       }
     },
     {
@@ -99,7 +109,7 @@
     {
       "name": "sleep",
       "operation-type": "sleep",
-      "duration": 30
+      "duration": 10
     }
   ],
   "challenges": [

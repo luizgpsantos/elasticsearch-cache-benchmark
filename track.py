@@ -37,8 +37,8 @@ class RandomProductSearchSource:
                     "bool": {
                         "must": [
                             {
-                                "match": {
-                                    "name": random.choice(self.products)
+                                "query_string": {
+                                    "query": "name:*{}*".format(random.choice(self.products)[5:8])
                                 }
                             }
                         ]
@@ -48,19 +48,12 @@ class RandomProductSearchSource:
                     "brands": {
                         "terms": {
                             "field": "brand.keyword",
-                            "size": 10
-                        }
-                    },
-                    "categories": {
-                        "terms": {
-                            "field": "category.keyword",
-                            "size": 10
+                            "size": 30
                         },
                         "aggs": {
-                            "subcategories": {
-                                "terms": {
-                                    "field": "subcategory.keyword",
-                                    "size": 10
+                            "price_percentile": {
+                                "percentiles": {
+                                    "field": "price"
                                 }
                             }
                         }
@@ -69,6 +62,20 @@ class RandomProductSearchSource:
                         "histogram": {
                             "field": "price",
                             "interval": 5
+                        }
+                    },
+                    "categories": {
+                        "terms": {
+                            "field": "category.keyword",
+                            "size": 100
+                        },
+                        "aggs": {
+                            "subcategories": {
+                                "terms": {
+                                    "field": "subcategory.keyword",
+                                    "size": 100
+                                }
+                            }
                         }
                     }
                 }
@@ -114,18 +121,8 @@ class RandomFilteredProductSearchSource:
                     "bool": {
                         "must": [
                             {
-                                "match": {
-                                    "name": random.choice(self.products)
-                                }
-                            }
-                        ],
-                        "filter": [
-                            {
-                                "range": {
-                                    "price": {
-                                        "gt": price_low,
-                                        "lte": price_low + price_range
-                                    }
+                                "query_string": {
+                                    "query": "name:*{}*".format(random.choice(self.products)[5:8])
                                 }
                             }
                         ]
@@ -135,19 +132,12 @@ class RandomFilteredProductSearchSource:
                     "brands": {
                         "terms": {
                             "field": "brand.keyword",
-                            "size": 10
-                        }
-                    },
-                    "categories": {
-                        "terms": {
-                            "field": "category.keyword",
-                            "size": 10
+                            "size": 30
                         },
                         "aggs": {
-                            "subcategories": {
-                                "terms": {
-                                    "field": "subcategory.keyword",
-                                    "size": 10
+                            "price_percentile": {
+                                "percentiles": {
+                                    "field": "price"
                                 }
                             }
                         }
@@ -156,6 +146,20 @@ class RandomFilteredProductSearchSource:
                         "histogram": {
                             "field": "price",
                             "interval": 5
+                        }
+                    },
+                    "categories": {
+                        "terms": {
+                            "field": "category.keyword",
+                            "size": 100
+                        },
+                        "aggs": {
+                            "subcategories": {
+                                "terms": {
+                                    "field": "subcategory.keyword",
+                                    "size": 100
+                                }
+                            }
                         }
                     }
                 }

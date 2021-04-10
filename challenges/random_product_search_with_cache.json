@@ -27,9 +27,7 @@
             "name": "random-product-search",
             "operation": "random-product-search-with-cache",
             "clients": 8,
-            "warmup-iterations": 200,
-            "iterations": 5000,
-            "target-throughput": 100
+            "time-period": 300
         },
         {
             "name": "sleep-after-search",

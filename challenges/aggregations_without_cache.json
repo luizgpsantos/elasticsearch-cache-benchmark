@@ -34,6 +34,19 @@
                             "terms": {
                                 "field": "brand.keyword",
                                 "size": 30
+                            },
+                            "aggs": {
+                                "price_percentile": {
+                                    "percentiles": {
+                                        "field": "price"
+                                    }
+                                }
+                            }
+                        },
+                        "price_range": {
+                            "histogram": {
+                                "field": "price",
+                                "interval": 5
                             }
                         },
                         "categories": {
@@ -49,20 +62,12 @@
                                     }
                                 }
                             }
-                        },
-                        "price_range": {
-                            "histogram": {
-                                "field": "price",
-                                "interval": 5
-                            }
                         }
                     }
                 }
             },
             "clients": 8,
-            "warmup-iterations": 200,
-            "iterations": 5000,
-            "target-throughput": 100
+            "time-period": 300
         },
         {
             "name": "sleep-after-search",
