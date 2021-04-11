@@ -104,7 +104,14 @@
       "operation-type": "search",
       "param-source": "filtered-products-param-source",
       "index": "products-000001",
-      "cache": true
+      "cache": false
+    },
+    {
+      "name": "random-filtered-product-search-without-cache",
+      "operation-type": "search",
+      "param-source": "filtered-products-param-source",
+      "index": "products-000001",
+      "cache": false
     },
     {
       "name": "sleep",

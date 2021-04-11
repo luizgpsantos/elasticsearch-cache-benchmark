@@ -135,42 +135,15 @@ class RandomFilteredProductSearchSource:
                                     }
                                 }
                             }
+                        ],
+                        "must_not": [
+                            {
+                                "query_string": {
+                                    "default_field": "name",
+                                    "query": "A*"
+                                }
+                            }
                         ]
-                    }
-                },
-                "aggs": {
-                    "brands": {
-                        "terms": {
-                            "field": "brand.keyword",
-                            "size": 30
-                        },
-                        "aggs": {
-                            "price_percentile": {
-                                "percentiles": {
-                                    "field": "price"
-                                }
-                            }
-                        }
-                    },
-                    "price_range": {
-                        "histogram": {
-                            "field": "price",
-                            "interval": 5
-                        }
-                    },
-                    "categories": {
-                        "terms": {
-                            "field": "category.keyword",
-                            "size": 100
-                        },
-                        "aggs": {
-                            "subcategories": {
-                                "terms": {
-                                    "field": "subcategory.keyword",
-                                    "size": 100
-                                }
-                            }
-                        }
                     }
                 }
             },

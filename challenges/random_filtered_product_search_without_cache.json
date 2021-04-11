@@ -25,7 +25,7 @@
         },
         {
             "name": "random-product-search",
-            "operation": "random-filtered-product-search-with-cache",
+            "operation": "random-filtered-product-search-without-cache",
             "clients": 8,
             "time-period": 300
         },
