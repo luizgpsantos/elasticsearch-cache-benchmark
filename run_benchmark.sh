@@ -1,4 +1,6 @@
-while getopts u:a:f: flag
+set -x
+
+while getopts t: flag
 do
     case "${flag}" in
         t) track=${OPTARG};;
