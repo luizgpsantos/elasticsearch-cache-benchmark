@@ -67,7 +67,7 @@
                 }
             },
             "clients": 8,
-            "time-period": 300
+            "time-period": 600
         },
         {
             "name": "sleep-after-search",
