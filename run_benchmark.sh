@@ -1,5 +1,7 @@
 set -x
 
+exec > >(tee "$HOME/benchmark_$(date +"%Y_%m_%d_%I_%M_%p").log") 2>&1
+
 while getopts t: flag
 do
     case "${flag}" in
