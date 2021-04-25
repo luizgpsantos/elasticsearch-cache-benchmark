@@ -1,4 +1,5 @@
 {
+    "cluster_name": "${CLUSTER_NAME}",
     "monitoring_type": "http",
     "monitoring_host": "${MONITORING_HOST}",
     "monitoring_port": "${MONITORING_PORT}",
