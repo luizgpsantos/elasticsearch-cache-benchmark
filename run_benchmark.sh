@@ -24,7 +24,7 @@ race () {
     echo $RACE_ID
 }
 
-export CLUSTER_NAME=$(date +"%Y%m%d%H%M%S")
+export CLUSTER_NAME="rally-benchmark_$(date +"%Y%m%d%H%M%S")"
 export MONITORING_HOST=$monitoringhost
 export MONITORING_PORT=$monitoringport
 export MONITORING_PASSWORD=$monitoringpw
