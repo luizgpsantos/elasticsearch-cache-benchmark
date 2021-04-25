@@ -1,11 +1,11 @@
 {
-    "cluster_name": "CLUSTER_NAME",
     "monitoring_type": "http",
     "monitoring_host": "MONITORING_HOST",
     "monitoring_port": "MONITORING_PORT",
     "monitoring_user": "elastic",
     "monitoring_password": "MONITORING_PASSWORD",
     "additional_cluster_settings": {
+        "cluster_name": "CLUSTER_NAME",
         "indices.requests.cache.size": "5%"
     }
 }
