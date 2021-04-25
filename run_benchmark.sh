@@ -29,7 +29,7 @@ export MONITORING_HOST=$monitoringhost
 export MONITORING_PORT=$monitoringport
 export MONITORING_PASSWORD=$monitoringpw
 
-sed -i -e 's/CLUSTER_NAME/${CLUSTER_NAME}/' -e 's/MONITORING_HOST/${MONITORING_HOST}/' -e 's/MONITORING_PORT/${MONITORING_PORT}/' -e 's/MONITORING_PASSWORD/${MONITORING_PASSWORD}/' car_params.json | tee car_params_concrete.json
+sed -e 's|CLUSTER_NAME|'$CLUSTER_NAME'|' -e 's|MONITORING_HOST|'$MONITORING_HOST'|' -e 's|MONITORING_PORT|'$MONITORING_PORT'|' -e 's|MONITORING_PASSWORD|'$MONITORING_PASSWORD'|' car_params.json | tee car_params_concrete.json
 
 INSTALLATION_ID=`esrally install --quiet --distribution-version=7.12.0 --node-name="rally-node-0" --network-host="127.0.0.1" --http-port=39200 --master-nodes="rally-node-0" --seed-hosts="127.0.0.1:39300" --car="4gheap,x-pack-monitoring-http" --car-params=car_params_concrete.json | jq --raw-output '.["installation-id"]'`
 
