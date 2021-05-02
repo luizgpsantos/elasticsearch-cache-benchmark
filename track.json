@@ -61,7 +61,10 @@
       "name": "create_no_query_cache",
       "operation-type": "create-index",
       "settings": {
-        "index.queries.cache.enabled": false
+        "index.queries.cache.enabled": false,
+        "index.search.slowlog.threshold.query.info": "200ms",
+        "index.search.slowlog.threshold.query.trace": "0ms",
+        "index.search.slowlog.level": "info"
       }
     },
     {
